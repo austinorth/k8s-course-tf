@@ -5,6 +5,7 @@ variable "cidr_blocks" {
   default = ["0.0.0.0/0"]
 }
 
+variable "public_key" {}
 variable "region" {}
 variable "subnet_id" {}
 variable "vpc_id" {}
@@ -49,9 +50,15 @@ resource "aws_security_group" "k8s_practice" {
   }
 }
 
+resource "aws_key_pair" "k8s_dev_key" {
+  key_name   = "k8s_dev_key"
+  public_key = "${var.public_key}"
+}
+
 resource "aws_instance" "k8s_master" {
   ami             = "${data.aws_ami.ubuntu.id}"
   instance_type   = "m5.large"
+  key_name        = "${aws_key_pair.k8s_dev_key.key_name}"
   security_groups = ["${aws_security_group.k8s_practice.id}"]
   subnet_id       = "${var.subnet_id}"
 }
@@ -59,6 +66,7 @@ resource "aws_instance" "k8s_master" {
 resource "aws_instance" "k8s_node" {
   ami             = "${data.aws_ami.ubuntu.id}"
   instance_type   = "m5.large"
+  key_name        = "${aws_key_pair.k8s_dev_key.key_name}"
   security_groups = ["${aws_security_group.k8s_practice.id}"]
   subnet_id       = "${var.subnet_id}"
 }
