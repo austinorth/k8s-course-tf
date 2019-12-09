@@ -1,2 +1,4 @@
-secrets.auto.tfvars
 *.swp
+.terraform
+remote.tf
+secrets.auto.tfvars

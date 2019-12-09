@@ -1,19 +1,13 @@
 # Creates two Ubuntu servers to practice Kubernetes on.
 
-variable "backend_bucket" {}
-variable "cidr_blocks" {}
+variable "cidr_blocks" {
+  type    = "list"
+  default = ["0.0.0.0/0"]
+}
+
 variable "region" {}
 variable "subnet_id" {}
 variable "vpc_id" {}
-
-terraform {
-  backend "s3" {
-    bucket  = "${backend_bucket}"
-    key     = "k8sdevcourse.tfstate"
-    region  = "${var.region}"
-    encrypt = true
-  }
-}
 
 provider "aws" {
   region = "${var.region}"
@@ -58,13 +52,13 @@ resource "aws_security_group" "k8s_practice" {
 resource "aws_instance" "k8s_master" {
   ami             = "${data.aws_ami.ubuntu.id}"
   instance_type   = "m5.large"
-  security_groups = ["${k8s_practice.id}"]
+  security_groups = ["${aws_security_group.k8s_practice.id}"]
   subnet_id       = "${var.subnet_id}"
 }
 
 resource "aws_instance" "k8s_node" {
   ami             = "${data.aws_ami.ubuntu.id}"
   instance_type   = "m5.large"
-  security_groups = ["${k8s_practice.id}"]
+  security_groups = ["${aws_security_group.k8s_practice.id}"]
   subnet_id       = "${var.subnet_id}"
 }
