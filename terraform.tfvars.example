@@ -1,4 +1,3 @@
-backend_bucket = "some.bucket"
 cidr_blocks = ["10.10.1.0/24", "10.10.2.0/24"]
 public_key = "thekeythatyouwanttoconnectwith"
 region = "us-east-1"
