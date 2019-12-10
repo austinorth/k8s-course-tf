@@ -1,5 +1,5 @@
 # k8s-course-tf
-Terraform config for a simple 2 node setup in AWS for [Linux Foundation
+Terraform config for a simple 2 instance EC2 setup in AWS for [Linux Foundation
 Kubernetes for
 Developers (LFD259)](https://training.linuxfoundation.org/training/kubernetes-for-developers/) course labs.
 
