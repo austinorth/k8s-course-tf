@@ -15,8 +15,10 @@ Developers (LFD259)](https://training.linuxfoundation.org/training/kubernetes-fo
 - `cp terraform.tfvars.example terraform.tfvars`
 - Edit `terraform.tfvars` and fill out the variables specific to your
   environment. They are as follows:
-  - `cidr_blocks` - the ip blocks you would like the instances to be
-    accessible from.
+  - `ingress_cidr_blocks` - the ip blocks you would like the instances
+    to be accessible from.
+  - `egress_cidr_blocks` - the ip blocks you would like the instances to
+    be able to access.
   - `public_key` - the ssh public key you would like to use for
     connecting to the instance
   - `region` - the AWS region you would like to create the instances in

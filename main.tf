@@ -2,7 +2,12 @@
 # You will want to create a secrets.auto.tfvars file with the
 # values that correspond to the following variables. See the
 # secrets.auto.example file in the repo.
-variable "cidr_blocks" {
+variable "ingress_cidr_blocks" {
+  type    = "list"
+  default = ["0.0.0.0/0"]
+}
+
+variable "egress_cidr_blocks" {
   type    = "list"
   default = ["0.0.0.0/0"]
 }
@@ -46,14 +51,14 @@ resource "aws_security_group" "k8s_practice" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = "${var.cidr_blocks}"
+    cidr_blocks = "${var.ingress_cidr_blocks}"
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = "${var.cidr_blocks}"
+    cidr_blocks = "${var.egress_cidr_blocks}"
   }
 }
 
